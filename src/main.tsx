@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import getRouteMapping from "./route/RouteMapping";
+import "./common/i18n/config";
 
 const router = createBrowserRouter(getRouteMapping());
 

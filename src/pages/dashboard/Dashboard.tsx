@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 function Dashboard() {
+  const { t } = useTranslation();
   return (
     <div>
       Dashboard<Button>Haha</Button>
+      {t("welcome")}
     </div>
   );
 }
