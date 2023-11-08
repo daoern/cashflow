@@ -1,18 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import getRouteMapping from "./route/RouteMapping";
-import "./common/i18n/config";
+import "@/index.css";
+import { RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
-import { appStore } from "./stores/appStore";
-
-const router = createBrowserRouter(getRouteMapping());
+import { appStore } from "@/stores/appStore";
+import { appRouter } from "@/routes";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={appStore}>
-      <RouterProvider router={router} />
+      <RouterProvider router={appRouter} />
     </Provider>
   </React.StrictMode>
 );

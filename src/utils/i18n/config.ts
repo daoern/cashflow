@@ -1,6 +1,6 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import translationEn from "./locale/en/translation.json";
+import translationEn from "@/utils/i18n/locales/en/translation.json";
 
 i18n.use(initReactI18next).init({
   fallbackLng: "en",
