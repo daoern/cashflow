@@ -1,7 +1,7 @@
 import { RouteObject, createBrowserRouter } from "react-router-dom";
 import Root from "../Root";
 import RoutePath from "@/routes/routePath";
-import Dashboard from "@/features/dashboard/components/dashboard";
+import Dashboard from "@/features/dashboard";
 
 function getRouteMapping(): RouteObject[] {
   return [

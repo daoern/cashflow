@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/lib/shadcnUi";
 import { useTranslation } from "react-i18next";
 
 function Dashboard() {
