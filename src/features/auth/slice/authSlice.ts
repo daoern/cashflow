@@ -1,8 +1,8 @@
+import { updateProfileState } from "@/features/user/utils/profile";
 import { supabase } from "@/lib/supabase";
 import { appStore } from "@/stores/appStore";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Session } from "@supabase/supabase-js";
-import { useDispatch } from "react-redux";
 
 interface AuthState {
   session: Session | null;
@@ -28,6 +28,8 @@ export default authSlice.reducer;
 supabase.auth.onAuthStateChange((event, session) => {
   console.log(event);
   appStore.dispatch(setSession(session));
+
+  updateProfileState();
 });
 
 async function fetchInitialSession() {

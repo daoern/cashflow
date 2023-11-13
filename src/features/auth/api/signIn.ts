@@ -3,6 +3,7 @@ import { SignInWithOAuthCredentials } from "@supabase/supabase-js";
 
 export enum OAuthProvider {
   github = "github",
+  google = "google",
 }
 
 export function getOAuthCredentials(
@@ -12,6 +13,10 @@ export function getOAuthCredentials(
     case OAuthProvider.github:
       return {
         provider: "github",
+      };
+    case OAuthProvider.google:
+      return {
+        provider: "google",
         options: {
           queryParams: {
             access_type: "offline",

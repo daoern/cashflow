@@ -1,7 +1,6 @@
 import { Button } from "@/lib/shadcnUi";
 import { useTranslation } from "react-i18next";
 import { signIn } from "../api/signIn";
-import useAuthState from "../hooks/useAuthState";
 
 function LoginPage() {
   const { t } = useTranslation();
@@ -9,8 +8,6 @@ function LoginPage() {
   const onLoginButtonClicked = () => {
     signIn();
   };
-
-  const session = useAuthState();
 
   return (
     <div className="lg:p-8">
