@@ -27,12 +27,13 @@ export function getOAuthCredentials(
   }
 }
 
-export const signIn = async (
+export const signInWithOAuth = async (
+  provider: OAuthProvider,
   onSuccess?: () => void,
   onError?: (errMsg: String) => void
 ) => {
   const { data, error } = await supabase.auth.signInWithOAuth(
-    getOAuthCredentials(OAuthProvider.github)
+    getOAuthCredentials(provider)
   );
   if (error) {
     console.log(error);

@@ -1,8 +1,16 @@
 import { RouteObject, createBrowserRouter } from "react-router-dom";
 import Root from "../Root";
-import RoutePath from "@/routes/routePath";
 import Dashboard from "@/features/dashboard";
-import LoginPage from "@/features/auth/components/LoginPage";
+import LoginPage from "@/features/auth/pages/LoginPage";
+
+abstract class RouteName {
+  static readonly dashboard = "dashboard";
+  static readonly login = "login";
+}
+export class RoutePath {
+  static readonly dashboard = RouteName.dashboard;
+  static readonly login = RouteName.login;
+}
 
 function getRouteMapping(): RouteObject[] {
   return [
@@ -11,11 +19,11 @@ function getRouteMapping(): RouteObject[] {
       element: <Root />,
       children: [
         {
-          path: RoutePath.dashboard,
+          path: RouteName.dashboard,
           element: <Dashboard />,
         },
         {
-          path: "login",
+          path: RouteName.login,
           element: <LoginPage />,
         },
       ],

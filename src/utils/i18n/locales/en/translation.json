@@ -1,3 +1,11 @@
 {
-  "welcome": "Welcome"
+  "welcome": "Welcome",
+  "login.page.title": "Welcome",
+  "login.page.description": "Sign in to your account",
+  "email": "Email",
+  "password": "Password",
+  "sign.in": "Sign in",
+  "or.continue.with": "Or continue with",
+  "github": "Github",
+  "google": "Google"
 }
