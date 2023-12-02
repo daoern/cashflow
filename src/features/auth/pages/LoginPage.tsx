@@ -1,4 +1,5 @@
 import LoginForm from "../components/LoginForm";
+import withAuth from "../hooks/withAuth";
 
 function LoginPage() {
   return (
@@ -11,4 +12,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default withAuth(LoginPage, { requireIsAuth: false });

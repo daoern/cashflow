@@ -1,5 +1,6 @@
 import { Button } from "@/lib/shadcnUi";
 import AppLayout from "../../../components/AppLayout";
+import withAuth from "@/features/auth/hooks/withAuth";
 
 function DashboardPage() {
   return (
@@ -18,4 +19,4 @@ function DashboardPage() {
   );
 }
 
-export default DashboardPage;
+export default withAuth(DashboardPage);

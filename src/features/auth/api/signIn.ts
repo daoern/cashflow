@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase";
+import { RoutePath } from "@/routes";
 import { SignInWithOAuthCredentials } from "@supabase/supabase-js";
 
 export enum OAuthProvider {
@@ -7,7 +8,7 @@ export enum OAuthProvider {
 }
 
 export function getOAuthCredentials(
-  provider: OAuthProvider
+  provider: OAuthProvider,
 ): SignInWithOAuthCredentials {
   switch (provider) {
     case OAuthProvider.github:
@@ -30,11 +31,19 @@ export function getOAuthCredentials(
 export const signInWithOAuth = async (
   provider: OAuthProvider,
   onSuccess?: () => void,
-  onError?: (errMsg: String) => void
+  onError?: (errMsg: String) => void,
 ) => {
-  const { data, error } = await supabase.auth.signInWithOAuth(
-    getOAuthCredentials(provider)
-  );
+  let credential = getOAuthCredentials(provider);
+
+  credential = {
+    ...credential,
+    options: {
+      ...credential.options,
+      redirectTo: window.location.origin + RoutePath.login,
+    },
+  };
+
+  const { data, error } = await supabase.auth.signInWithOAuth(credential);
   if (error) {
     console.log(error);
     onError?.(error.name);

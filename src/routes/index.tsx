@@ -4,18 +4,19 @@ import Dashboard from "@/features/dashboard";
 import LoginPage from "@/features/auth/pages/LoginPage";
 
 abstract class RouteName {
+  static readonly root = "/";
   static readonly dashboard = "dashboard";
   static readonly login = "login";
 }
 export class RoutePath {
-  static readonly dashboard = RouteName.dashboard;
-  static readonly login = RouteName.login;
+  static readonly dashboard = RouteName.root + RouteName.dashboard;
+  static readonly login = RouteName.root + RouteName.login;
 }
 
 function getRouteMapping(): RouteObject[] {
   return [
     {
-      path: "/",
+      path: RouteName.root,
       element: <Root />,
       children: [
         {
