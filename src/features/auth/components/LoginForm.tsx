@@ -10,6 +10,7 @@ import {
 } from "@/lib/shadcnUi";
 import { useTranslation } from "react-i18next";
 import { OAuthProvider, signInWithOAuth } from "../api/signIn";
+import { Icon } from "@iconify/react";
 
 function LoginForm() {
   const { t } = useTranslation();
@@ -50,12 +51,14 @@ function LoginForm() {
             variant="outline"
             onClick={() => onLoginButtonClicked(OAuthProvider.github)}
           >
+            <Icon className="mr-2 h-4 w-4" icon="mdi:github" />
             {t("github")}
           </Button>
           <Button
             variant="outline"
             onClick={() => onLoginButtonClicked(OAuthProvider.google)}
           >
+            <Icon className="mr-2 h-4 w-4" icon="mdi:google" />
             {t("google")}
           </Button>
         </div>

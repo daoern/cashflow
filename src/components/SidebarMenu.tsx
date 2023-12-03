@@ -1,5 +1,6 @@
 import { Button } from "@/lib/shadcnUi";
 import { MenuEntry, isMenuGroup } from "@/types/menu";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 interface SidebarProps {
   menuEntries: MenuEntry[];
@@ -23,7 +24,11 @@ function SidebarMenu(props: SidebarProps) {
                       variant="ghost"
                       className="w-full justify-start"
                     >
-                      <div className="mr-2 h-4 w-4 border"></div>
+                      {childEntry.icon == null ? (
+                        <div className="mr-2 h-4 w-4 border"></div>
+                      ) : (
+                        <Icon className="mr-2 h-4 w-4" icon={childEntry.icon} />
+                      )}
                       {childEntry.label}
                     </Button>
                   );
@@ -35,7 +40,11 @@ function SidebarMenu(props: SidebarProps) {
         return (
           <div key={index} className="px-3 py-2">
             <Button variant="ghost" className="w-full justify-start">
-              <div className="mr-2 h-4 w-4 border"></div>
+              {entry.icon == null ? (
+                <div className="mr-2 h-4 w-4 border"></div>
+              ) : (
+                <Icon className="mr-2 h-4 w-4" icon={entry.icon} />
+              )}
               {entry.label}
             </Button>
           </div>

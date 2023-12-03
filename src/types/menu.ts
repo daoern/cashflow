@@ -1,7 +1,7 @@
 export type MenuItem = {
   label: string;
   url?: string;
-  icon?: unknown;
+  icon?: string;
   onClick?: () => void;
 };
 
