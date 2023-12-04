@@ -1,10 +1,22 @@
+import { RoutePath } from "@/routes";
 import { MenuEntry } from "@/types/menu";
+import { redirect } from "react-router-dom";
+
+function createUrlMenuEntry(entry: MenuEntry & { url: string }): MenuEntry {
+  return {
+    ...entry,
+    onClick() {
+      redirect(entry.url);
+    },
+  };
+}
 
 const menuEntries: MenuEntry[] = [
-  {
+  createUrlMenuEntry({
     label: "Dashboard",
     icon: "material-symbols:dashboard-outline-rounded",
-  },
+    url: RoutePath.dashboard,
+  }),
   {
     label: "Data",
     children: [
