@@ -24,6 +24,7 @@ export function getNavigationMenu(): MenuEntry[] {
         {
           label: "Account",
           icon: "material-symbols:account-balance-outline-rounded",
+          url: RoutePath.account,
         },
         {
           label: "Budget",

@@ -1,6 +1,7 @@
 import { RootState } from "@/stores/appStore";
 import { useSelector } from "react-redux";
 import { UserProfile } from "../api/profile";
+import { useMemo } from "react";
 
 export interface UserInfo {
   profile: UserProfile | null;
@@ -33,5 +34,5 @@ function createUserInfo(profile: UserProfile | null): UserInfo {
 
 export function useUserInfo(): UserInfo {
   const profile = useSelector((state: RootState) => state.user.profile);
-  return createUserInfo(profile);
+  return useMemo(() => createUserInfo(profile), [profile]);
 }

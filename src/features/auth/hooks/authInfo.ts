@@ -1,5 +1,6 @@
 import { RootState, appStore } from "@/stores/appStore";
 import { Session } from "@supabase/supabase-js";
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 
 export interface AuthInfo {
@@ -22,7 +23,7 @@ function createAuthInfo(session: Session | null): AuthInfo {
 
 export function useAuthInfo(): AuthInfo {
   const session = useSelector((state: RootState) => state.auth.session);
-  return createAuthInfo(session);
+  return useMemo(() => createAuthInfo(session), [session]);
 }
 
 export function getAuthInfo(): AuthInfo {

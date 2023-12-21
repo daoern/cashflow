@@ -8,5 +8,12 @@
   "sign.out": "Sign out",
   "or.continue.with": "Or continue with",
   "github": "Github",
-  "google": "Google"
+  "google": "Google",
+  "account": "Account",
+  "all.accounts": "All accounts",
+  "add.account": "Add account",
+  "add.account.description": "Add new account into your profile",
+  "account.name": "Account name",
+  "currency": "Currency",
+  "save": "Save"
 }

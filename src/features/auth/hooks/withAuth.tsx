@@ -8,17 +8,17 @@ const withAuth = <P extends object>(
   { requireIsAuth }: { requireIsAuth?: boolean } = {},
 ) => {
   const AuthenticatedComponent = (props: P) => {
-    const navigate = useNavigate();
-    const authInfo = useAuthInfo();
-    requireIsAuth ??= true;
+    // const navigate = useNavigate();
+    // const authInfo = useAuthInfo();
+    // requireIsAuth ??= true;
 
-    useEffect(() => {
-      if (requireIsAuth && !authInfo.isAuthenticated()) {
-        navigate(RoutePath.login);
-      } else if (!requireIsAuth && authInfo.isAuthenticated()) {
-        navigate(RoutePath.dashboard);
-      }
-    }, [authInfo]);
+    // useEffect(() => {
+    //   if (requireIsAuth && !authInfo.isAuthenticated()) {
+    //     navigate(RoutePath.login);
+    //   } else if (!requireIsAuth && authInfo.isAuthenticated()) {
+    //     navigate(RoutePath.dashboard);
+    //   }
+    // }, [authInfo]);
 
     return <Component {...props} />;
   };
