@@ -36,6 +36,10 @@ const withAuth = <P extends object>(
       return <></>;
     }
 
+    if (authInfo.state.status === "error") {
+      return <p>Authentication Error</p>;
+    }
+
     return <Component {...props} />;
   };
 
