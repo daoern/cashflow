@@ -1,5 +1,5 @@
 import { RouteObject, createBrowserRouter } from "react-router-dom";
-import Root from "../Root";
+import App from "../App";
 import Dashboard from "@/features/dashboard";
 import LoginPage from "@/features/auth/pages/LoginPage";
 import CashAccountPage from "@/features/account/pages/CashAccountPage";
@@ -21,7 +21,7 @@ function getRouteMapping(): RouteObject[] {
   return [
     {
       path: RouteName.root,
-      element: <Root />,
+      element: <App />,
       children: [
         {
           path: RouteName.dashboard,

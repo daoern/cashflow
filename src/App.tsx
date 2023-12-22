@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useRef } from "react";
+import { Outlet } from "react-router-dom";
+import { supabase } from "./lib/supabase";
+import { useDispatch } from "react-redux";
+import { setSession } from "./features/auth/slice/authSlice";
+import { updateProfileState } from "./features/user/utils/profile";
+import { getAuthInfo } from "./features/auth/hooks/authInfo";
+import { deepEqual } from "./utils/compare";
+import { AuthChangeEvent } from "@supabase/supabase-js";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const dispatch = useDispatch();
+  const lastAuthEventRef = useRef<AuthChangeEvent>();
 
+  useEffect(() => {
+    const authStateListener = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (
+          (lastAuthEventRef.current === event || event === "SIGNED_IN") &&
+          deepEqual(getAuthInfo().state.session, session)
+        ) {
+          return;
+        }
+        lastAuthEventRef.current = event;
+        dispatch(setSession(session));
+        updateProfileState();
+      },
+    );
+
+    // supabase.auth.getSession().then(({ data: { session } }) => {
+    //   if (!deepEqual(getAuthInfo().state.session, session)) {
+    //     dispatch(setSession(session));
+    //   }
+    // });
+
+    return () => {
+      authStateListener.data.subscription.unsubscribe();
+    };
+  }, []);
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="h-full">
+      <Outlet></Outlet>
+    </div>
+  );
+};
 
-export default App
+export default App;

@@ -17,8 +17,13 @@ function CashAccountList() {
   const cashAccountState = useSelector((state: RootState) => state.cashAccount);
 
   useEffect(() => {
-    dispatch(loadAllCashAccounts(authInfo?.getId() ?? ""));
-  }, []);
+    const loadCashAccountPromise = dispatch(
+      loadAllCashAccounts(authInfo?.getId() ?? ""),
+    );
+    return () => {
+      loadCashAccountPromise.abort();
+    };
+  }, [authInfo]);
 
   if (cashAccountState.status === "loading") {
     return (

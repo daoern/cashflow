@@ -5,7 +5,7 @@ import { setProfile } from "../slice/profileSlice";
 
 export async function updateProfileState() {
   const authManager = getAuthInfo();
-  const profile = authManager.isAuthenticated()
+  const profile = authManager.isSignedIn()
     ? await getProfileById(authManager.getId() ?? "")
     : null;
   appStore.dispatch(setProfile(profile));

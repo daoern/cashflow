@@ -1,5 +1,5 @@
 import LoginForm from "../components/LoginForm";
-import withAuth from "../hooks/withAuth";
+import withAuth, { AuthState } from "../hooks/withAuth";
 
 function LoginPage() {
   return (
@@ -12,4 +12,4 @@ function LoginPage() {
   );
 }
 
-export default withAuth(LoginPage, { requireIsAuth: false });
+export default withAuth(LoginPage, { allowedStates: [AuthState.signedOut] });

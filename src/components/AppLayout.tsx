@@ -31,10 +31,10 @@ function AppLayout(props: React.PropsWithChildren) {
     },
   ];
 
-  const { userName, userHandle } = authInfo?.isAuthenticated()
+  const { userName, userHandle } = authInfo?.isSignedOut()
     ? {
         userName: userInfo?.getName(),
-        userHandle: authInfo?.session?.user?.email,
+        userHandle: authInfo?.getEmail(),
       }
     : {
         userName: null,
