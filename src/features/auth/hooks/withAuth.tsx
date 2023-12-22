@@ -20,12 +20,12 @@ const withAuth = <P extends object>(
 
     useEffect(() => {
       if (
-        authInfo.isSignedIn() &&
+        authInfo.isSignedOut() &&
         !allowedStates.includes(AuthState.signedOut)
       ) {
         navigate(RoutePath.login);
       } else if (
-        authInfo.isSignedOut() &&
+        authInfo.isSignedIn() &&
         !allowedStates.includes(AuthState.signedIn)
       ) {
         navigate(RoutePath.dashboard);

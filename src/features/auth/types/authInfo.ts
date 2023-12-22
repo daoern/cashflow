@@ -4,8 +4,8 @@ export type AuthInfo = {
   state: AuthDataState;
   getId(): string | undefined;
   getEmail(): string | undefined;
-  isSignedOut(): boolean;
   isSignedIn(): boolean;
+  isSignedOut(): boolean;
 };
 
 export default function createAuthInfo(state: AuthDataState): AuthInfo {
@@ -17,11 +17,11 @@ export default function createAuthInfo(state: AuthDataState): AuthInfo {
     return state?.session?.user?.email;
   }
 
-  function isLoggedIn(): boolean {
+  function isSignedIn(): boolean {
     return state?.status === "completed" && state?.session != null;
   }
 
-  function isLoggedOut(): boolean {
+  function isSignedOut(): boolean {
     return state?.status === "completed" && state?.session == null;
   }
 
@@ -29,7 +29,7 @@ export default function createAuthInfo(state: AuthDataState): AuthInfo {
     state: state,
     getId: getId,
     getEmail: getEmail,
-    isSignedOut: isLoggedIn,
-    isSignedIn: isLoggedOut,
+    isSignedIn: isSignedIn,
+    isSignedOut: isSignedOut,
   };
 }

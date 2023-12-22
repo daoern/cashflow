@@ -31,7 +31,7 @@ function AppLayout(props: React.PropsWithChildren) {
     },
   ];
 
-  const { userName, userHandle } = authInfo?.isSignedOut()
+  const { userName, userHandle } = authInfo?.isSignedIn()
     ? {
         userName: userInfo?.getName(),
         userHandle: authInfo?.getEmail(),
