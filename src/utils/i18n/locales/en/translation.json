@@ -15,5 +15,8 @@
   "add.account.description": "Add new account into your profile",
   "account.name": "Account name",
   "currency": "Currency",
-  "save": "Save"
+  "save": "Save",
+  "select.currency": "Select currency",
+  "search.currency": "Search currency...",
+  "search.currency.empty": "No currency found."
 }

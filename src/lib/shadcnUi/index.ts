@@ -8,5 +8,6 @@ export * from "@/lib/shadcnUi/components/form";
 export * from "@/lib/shadcnUi/components/input";
 export * from "@/lib/shadcnUi/components/label";
 export * from "@/lib/shadcnUi/components/popover";
+export * from "@/lib/shadcnUi/components/select";
 export * from "@/lib/shadcnUi/components/skeleton";
 export * from "@/lib/shadcnUi/utils";

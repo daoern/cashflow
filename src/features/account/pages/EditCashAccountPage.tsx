@@ -20,6 +20,8 @@ import { useDispatch } from "react-redux";
 import { addCashAccount } from "../slice/accountSlice";
 import { AppDispatch } from "@/stores/appStore";
 import { useAuthInfo } from "@/features/auth/hooks/authInfo";
+import { getCurrencyList } from "@/utils/currency";
+import CommandSelect from "@/components/CommandSelect";
 
 type Inputs = {
   accountName: string;
@@ -91,9 +93,25 @@ function EditCashAccountPage() {
                       <FormLabel className="text-right">
                         {t("currency")}
                       </FormLabel>
-                      <FormControl>
-                        <Input className="col-span-3" {...field} />
-                      </FormControl>
+                      <div className="col-span-2">
+                        <FormControl>
+                          <CommandSelect
+                            value={field.value}
+                            items={getCurrencyList().map((currency) => {
+                              return {
+                                label: `${currency.name} (${currency.code})`,
+                                value: currency.code,
+                              };
+                            })}
+                            onSelect={(value) =>
+                              form.setValue("currency", value)
+                            }
+                            placeholder={t("select.currency")}
+                            searchInputPlaceholder={t("search.currency")}
+                            emptySearchDisplay={t("search.currency.empty")}
+                          />
+                        </FormControl>
+                      </div>
                     </div>
                   </FormItem>
                 )}
