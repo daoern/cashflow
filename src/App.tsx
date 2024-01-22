@@ -7,6 +7,7 @@ import { updateProfileState } from "./features/user/utils/profile";
 import { getAuthInfo } from "./features/auth/hooks/authInfo";
 import { deepEqual } from "./utils/compare";
 import { AuthChangeEvent } from "@supabase/supabase-js";
+import { Toaster } from "./lib/shadcnUi/components/toaster";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const App = () => {
   return (
     <div className="h-full">
       <Outlet></Outlet>
+      <Toaster />
     </div>
   );
 };

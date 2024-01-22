@@ -8,14 +8,14 @@ import { addCashAccount } from "../slice/accountSlice";
 import { CashAccount } from "../types/cashAccount";
 import CashAccountForm from "../components/CashAccountForm";
 
-function EditCashAccountPage() {
+function AddCashAccountPage() {
   const { t } = useTranslation();
+
+  const { toast } = useToast();
 
   const navigate = useNavigate();
 
   const dispatch = useDispatch<AppDispatch>();
-
-  const { toast } = useToast();
 
   async function onSubmit(value: CashAccount) {
     try {
@@ -46,4 +46,4 @@ function EditCashAccountPage() {
   );
 }
 
-export default EditCashAccountPage;
+export default AddCashAccountPage;

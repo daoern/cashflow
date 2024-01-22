@@ -25,12 +25,19 @@ interface CommandSelectProps {
   searchInputPlaceholder?: string;
   emptySearchDisplay?: React.ReactNode;
   onSelect?: ((value: string) => void) | undefined;
+  readonly?: boolean;
 }
 
 function CommandSelect(props: CommandSelectProps) {
+  props.readonly ??= false;
+
   const [isOpen, setOpen] = useState(false);
   return (
-    <Popover modal={true} open={isOpen} onOpenChange={setOpen}>
+    <Popover
+      modal={true}
+      open={isOpen}
+      onOpenChange={(open) => setOpen(open && !props.readonly)}
+    >
       <PopoverTrigger asChild>
         <Button
           variant="outline"

@@ -1,5 +1,5 @@
-import { supabase } from "@/lib/supabase";
-import { CashAccount } from "../types/cashAccount";
+import { InsertDto, Row, UpdateDto, supabase } from "@/lib/supabase";
+import { CashAccount, CashAccountDTO } from "../types/cashAccount";
 
 export async function getCashAccountsByUserId(
   id: string,
@@ -11,27 +11,59 @@ export async function getCashAccountsByUserId(
   if (error) {
     throw error;
   }
-  if (status === 200 && data != null) {
-    return data.map((e) => {
-      return {
-        accountId: e.id,
-        accountName: e.account_name ?? "",
-        currency: e.currency ?? "",
-        userId: e.user_id ?? "",
-      };
-    });
+  if (data) {
+    return data.map((e) => mapDataToCashAccount(e));
   }
   return [];
 }
 
 export async function insertNewCashAccount(account: CashAccount) {
-  const { error, status } = await supabase.from("cash_accounts").insert({
-    account_name: account.accountName,
-    currency: account.currency,
-    user_id: account.userId,
-  });
-  if (status !== 200 || error) {
+  const { data, error, status } = await supabase
+    .from("cash_accounts")
+    .insert({
+      account_name: account.accountName,
+      currency: account.currency,
+      user_id: account.userId,
+    })
+    .select();
+  if (error) {
     throw error;
   }
+  if (data) {
+    return mapDataToCashAccount(data[0]);
+  }
   return null;
+}
+
+export async function deleteCashAccount(accountId: number) {
+  const { error, status } = await supabase
+    .from("cash_accounts")
+    .delete()
+    .eq("id", accountId);
+  if (error) {
+    throw error;
+  }
+}
+
+export async function updateCashAccount(account: CashAccountDTO) {
+  const { data, error, status } = await supabase
+    .from("cash_accounts")
+    .update({ account_name: account.accountName, currency: account.currency })
+    .eq("id", account.accountId ?? "")
+    .select();
+  if (error) {
+    throw error;
+  }
+  if (data) {
+    return mapDataToCashAccount(data[0]);
+  }
+}
+
+function mapDataToCashAccount(data: Row<"cash_accounts">): CashAccount {
+  return {
+    accountId: data.id,
+    accountName: data.account_name ?? "",
+    currency: data.currency ?? "",
+    userId: data.user_id ?? "",
+  };
 }

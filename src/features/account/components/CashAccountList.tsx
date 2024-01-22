@@ -74,6 +74,7 @@ function CashAccountList() {
         return (
           <CashAccountItem
             key={cashAccount.accountId}
+            accountId={cashAccount.accountId}
             accountName={cashAccount.accountName}
             accountCurrency={cashAccount.currency}
             balance={0}

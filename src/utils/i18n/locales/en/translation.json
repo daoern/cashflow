@@ -18,5 +18,11 @@
   "save": "Save",
   "select.currency": "Select currency",
   "search.currency": "Search currency...",
-  "search.currency.empty": "No currency found."
+  "search.currency.empty": "No currency found.",
+  "delete.confirmation.title": "Are you sure to delete {{item}}?",
+  "delete.confirmation.desc": "This action cannot be undone. This will permanently remove your data from the servers.",
+  "success": "Success",
+  "account.removed": "Account {{item}} removed.",
+  "delete": "Delete",
+  "cancel": "Cancel"
 }
