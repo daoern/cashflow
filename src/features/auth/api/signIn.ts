@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import { RoutePath } from "@/routes";
+import { routes } from "@/routes";
 import { SignInWithOAuthCredentials } from "@supabase/supabase-js";
 
 export enum OAuthProvider {
@@ -39,7 +39,7 @@ export const signInWithOAuth = async (
     ...credential,
     options: {
       ...credential.options,
-      redirectTo: window.location.origin + RoutePath.login,
+      redirectTo: window.location.origin + routes.login,
     },
   };
 

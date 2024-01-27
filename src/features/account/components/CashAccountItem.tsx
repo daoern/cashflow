@@ -18,6 +18,7 @@ import { useTranslation } from "react-i18next";
 import { removeCashAccount } from "../slice/accountSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/stores/appStore";
+import { AppLink } from "@/routes/AppLink";
 
 interface CashAccountItemProps {
   accountId: number;
@@ -65,9 +66,15 @@ function CashAccountItem(props: CashAccountItemProps) {
       <Button className="ml-4 space-y-1" variant="outline">
         View
       </Button>
-      <Button className="ml-4 space-y-1" variant="outline">
-        Edit
-      </Button>
+      <AppLink
+        to="/account/edit/:id"
+        params={{ id: props.accountId.toString() }}
+      >
+        <Button className="ml-4 space-y-1" variant="outline">
+          Edit
+        </Button>
+      </AppLink>
+
       <AlertDialogAsync
         title={t("delete.confirmation.title", { item: props.accountName })}
         description={t("delete.confirmation.desc")}

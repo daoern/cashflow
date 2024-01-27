@@ -3,9 +3,17 @@ export type CashAccount = {
   accountName: string;
   currency: string;
   userId: string;
+  createDate: string;
 };
 
-export type CashAccountDTO = {
+export type CashAccountInsertDTO = {
+  accountId?: number;
+  accountName: string;
+  currency: string;
+  userId: string;
+};
+
+export type CashAccountUpdateDTO = {
   accountId?: number;
   accountName?: string;
   currency?: string;

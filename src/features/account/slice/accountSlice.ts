@@ -1,11 +1,11 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { CashAccount } from "../types/cashAccount";
-import { CashAccountState } from "../types/cashAccountState";
 import {
-  deleteCashAccount,
-  getCashAccountsByUserId,
-  insertNewCashAccount,
-} from "../api/account";
+  CashAccount,
+  CashAccountInsertDTO,
+  CashAccountUpdateDTO,
+} from "../types/cashAccount";
+import { CashAccountState } from "../types/cashAccountState";
+import { accountApi } from "../api/account";
 
 const initialState: CashAccountState = { status: "loading" };
 
@@ -43,6 +43,15 @@ const cashAccountSlice = createSlice({
             (cashAccount) => cashAccount.accountId != action.payload,
           );
         }
+      })
+      .addCase(updateCashAccount.fulfilled, (state, action) => {
+        if (action.payload && state.status == "success") {
+          state.cashAccounts = state.cashAccounts.map((cashAccount) =>
+            cashAccount.accountId == action.payload.accountId
+              ? action.payload.cashAccount ?? cashAccount
+              : cashAccount,
+          );
+        }
       });
   },
 });
@@ -51,8 +60,9 @@ export const loadAllCashAccounts = createAsyncThunk(
   "cashAccount/fetch",
   async (userId: string, { rejectWithValue }) => {
     try {
-      const cashAccount = await getCashAccountsByUserId(userId);
-      return cashAccount;
+      const cashAccounts = await accountApi.getCashAccountsByUserId(userId);
+      cashAccounts.sort((a, b) => a.createDate.localeCompare(b.createDate));
+      return cashAccounts;
     } catch (e) {
       return rejectWithValue(e);
     }
@@ -61,9 +71,9 @@ export const loadAllCashAccounts = createAsyncThunk(
 
 export const addCashAccount = createAsyncThunk(
   "cashAccount/add",
-  async (cashAccount: CashAccount, { rejectWithValue }) => {
+  async (cashAccount: CashAccountInsertDTO, { rejectWithValue }) => {
     try {
-      return await insertNewCashAccount(cashAccount);
+      return await accountApi.insertNewCashAccount(cashAccount);
     } catch (e) {
       return rejectWithValue(e);
     }
@@ -74,7 +84,7 @@ export const removeCashAccount = createAsyncThunk(
   "cashAccount/remove",
   async (accountId: number, { rejectWithValue }) => {
     try {
-      await deleteCashAccount(accountId);
+      await accountApi.deleteCashAccount(accountId);
       return accountId;
     } catch (e) {
       return rejectWithValue(e);
@@ -82,6 +92,23 @@ export const removeCashAccount = createAsyncThunk(
   },
 );
 
-// export const { setCashAccounts } = cashAccountSlice.actions;
+export const updateCashAccount = createAsyncThunk(
+  "cashAccount/update",
+  async (
+    args: { accountId: number; cashAccount: CashAccountUpdateDTO },
+    { rejectWithValue },
+  ) => {
+    try {
+      const cashAccount = await accountApi.updateCashAccount(
+        args.accountId,
+        args.cashAccount,
+      );
+      return { ...args, cashAccount: cashAccount };
+    } catch (e) {
+      return rejectWithValue(e);
+    }
+  },
+);
 
+// export const { setCashAccounts } = cashAccountSlice.actions;
 export default cashAccountSlice.reducer;

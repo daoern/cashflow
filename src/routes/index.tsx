@@ -3,40 +3,57 @@ import App from "../App";
 import Dashboard from "@/features/dashboard";
 import LoginPage from "@/features/auth/pages/LoginPage";
 import CashAccountPage from "@/features/account/pages/CashAccountPage";
+import AddCashAccountPage from "@/features/account/pages/AddCashAccountPage";
 import EditCashAccountPage from "@/features/account/pages/EditCashAccountPage";
 
-abstract class RouteName {
-  static readonly root = "/";
-  static readonly dashboard = "dashboard";
-  static readonly login = "login";
-  static readonly account = "account";
-}
-export class RoutePath {
-  static readonly dashboard = RouteName.root + RouteName.dashboard;
-  static readonly login = RouteName.root + RouteName.login;
-  static readonly account = RouteName.root + RouteName.account;
-}
+export const routes = {
+  root: "/",
+  dashboard: "/dashboard",
+  login: "/login",
+  // account
+  account: "/account",
+  addAccount: "/account/add",
+  editAccount: "/account/edit/:id",
+} as const;
+
+export type AppRoutes = (typeof routes)[keyof typeof routes];
+
+export type ExtractParam<Path, NextPart> = Path extends `:${infer Param}`
+  ? Record<Param, string> & (NextPart extends undefined ? {} : NextPart)
+  : NextPart;
+
+export type ExtractParams<Path> = Path extends `${infer Segment}/${infer Rest}`
+  ? ExtractParam<Segment, ExtractParams<Rest>>
+  : ExtractParam<Path, undefined>;
+
+export type AppRouteParams<Route extends AppRoutes> = ExtractParams<Route>;
+
+export type EditCashAccountPageParams = AppRouteParams<"/account/edit/:id">;
 
 function getRouteMapping(): RouteObject[] {
   return [
     {
-      path: RouteName.root,
+      path: routes.root,
       element: <App />,
       children: [
         {
-          path: RouteName.dashboard,
+          path: routes.dashboard,
           element: <Dashboard />,
         },
         {
-          path: RouteName.login,
+          path: routes.login,
           element: <LoginPage />,
         },
         {
-          path: RouteName.account,
+          path: routes.account,
           element: <CashAccountPage />,
           children: [
             {
-              path: "add",
+              path: routes.addAccount,
+              element: <AddCashAccountPage />,
+            },
+            {
+              path: routes.editAccount,
               element: <EditCashAccountPage />,
             },
           ],

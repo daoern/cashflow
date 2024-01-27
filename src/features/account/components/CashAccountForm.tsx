@@ -2,10 +2,7 @@ import CommandSelect from "@/components/form/CommandSelect";
 import LoadingSpinner from "@/components/spinner/LoadingSpinner";
 import {
   Button,
-  DialogDescription,
   DialogFooter,
-  DialogHeader,
-  DialogTitle,
   Form,
   FormControl,
   FormField,
@@ -20,8 +17,6 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
-import { CashAccount } from "../types/cashAccount";
-import { getAuthInfo } from "@/features/auth/hooks/authInfo";
 
 const formSchema = z.object({
   accountName: z.string({
@@ -32,11 +27,11 @@ const formSchema = z.object({
   }),
 });
 
-type Inputs = z.infer<typeof formSchema>;
+export type CashAccountFormInputs = z.infer<typeof formSchema>;
 
 interface CashAccountFormProps {
-  defaultValues?: Inputs;
-  onSubmit: (value: CashAccount) => void;
+  defaultValues?: CashAccountFormInputs;
+  onSubmit: (value: CashAccountFormInputs) => void;
 }
 
 function CashAccountForm(props: CashAccountFormProps) {
@@ -44,16 +39,13 @@ function CashAccountForm(props: CashAccountFormProps) {
 
   const [isSubmitLoading, setSubmitLoading] = useState(false);
 
-  const form = useForm<Inputs>({
+  const form = useForm<CashAccountFormInputs>({
     resolver: zodResolver(formSchema),
     defaultValues: props.defaultValues,
   });
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const authInfo = getAuthInfo();
+  const onSubmit: SubmitHandler<CashAccountFormInputs> = async (data) => {
     const value = {
-      accountId: 0,
-      userId: authInfo.getId() ?? "",
       accountName: data.accountName,
       currency: data.currency,
     };
@@ -68,10 +60,6 @@ function CashAccountForm(props: CashAccountFormProps) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <DialogHeader>
-          <DialogTitle>{t("add.account")}</DialogTitle>
-          <DialogDescription>{t("add.account.description")}</DialogDescription>
-        </DialogHeader>
         <div className="grid gap-4 py-4">
           <FormField
             control={form.control}

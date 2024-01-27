@@ -24,5 +24,6 @@
   "success": "Success",
   "account.removed": "Account {{item}} removed.",
   "delete": "Delete",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "edit.account": "Edit Account"
 }

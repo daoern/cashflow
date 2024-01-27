@@ -1,4 +1,5 @@
-import { RoutePath } from "@/routes";
+// import { RoutePath } from "@/routes";
+import { routes } from "@/routes";
 import { MenuEntry } from "@/types/menu";
 import { redirect } from "react-router-dom";
 
@@ -16,7 +17,7 @@ export function getNavigationMenu(): MenuEntry[] {
     createUrlMenuEntry({
       label: "Dashboard",
       icon: "material-symbols:dashboard-outline-rounded",
-      url: RoutePath.dashboard,
+      url: routes.dashboard,
     }),
     {
       label: "Data",
@@ -24,7 +25,7 @@ export function getNavigationMenu(): MenuEntry[] {
         {
           label: "Account",
           icon: "material-symbols:account-balance-outline-rounded",
-          url: RoutePath.account,
+          url: routes.account,
         },
         {
           label: "Budget",

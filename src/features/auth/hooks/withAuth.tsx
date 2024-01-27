@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuthInfo } from "./authInfo";
 import { useEffect } from "react";
-import { RoutePath } from "@/routes";
+import { routes } from "@/routes";
 
 export enum AuthState {
   signedIn,
@@ -23,12 +23,12 @@ const withAuth = <P extends object>(
         authInfo.isSignedOut() &&
         !allowedStates.includes(AuthState.signedOut)
       ) {
-        navigate(RoutePath.login);
+        navigate(routes.login);
       } else if (
         authInfo.isSignedIn() &&
         !allowedStates.includes(AuthState.signedIn)
       ) {
-        navigate(RoutePath.dashboard);
+        navigate(routes.dashboard);
       }
     }, [authInfo]);
 
